@@ -4,7 +4,7 @@ A simple tabled-based database with a key-value interface.
 ## Setup
 ```python
 # New instance
-db = Database("./database", ["core", "public"])
+db = CGDB("./database", ["core", "public"])
 # Set
 db.set(key="GREET", value="Hello world!", table="core")
 # Get

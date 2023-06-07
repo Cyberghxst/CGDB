@@ -1,0 +1,6 @@
+# Folders
+/__pycache__
+/db
+
+# Files
+main.py

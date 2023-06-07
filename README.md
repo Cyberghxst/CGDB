@@ -16,3 +16,8 @@ print(all) # [{'key': 'GREET', 'value': 'Hello world!'}]
 # Delete
 db.delete(key="GREET", table="core")
 ```
+
+### Options
+There are two types of CGDB built with SQLITE or JSON. <br>
+for JSON, import `json.py` <br>
+for SQLITE3, import `sqlite.py`

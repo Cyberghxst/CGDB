@@ -24,15 +24,19 @@ class CGDB:
         Checks if the given key exists in the provided table.
     delete(key: str, table: str)
         Deletes the provided data from the given table.
+    all(table: str)
+        Return every value stored in the given database table inside a list.
     """
     def __init__(self, dir: str, tables: list[str]) -> None:
         """
-        Starts the Database class and sets-up db files.
+        Starts the Database class and creates table files.
 
         Parameters
         ----------
         path: str
             The database files path.
+        tables: list[str]
+            The table names.
 
         Returns
         ----------
@@ -181,6 +185,8 @@ class CGDB:
             raise Exception(f"CGDB :: Invalid table \"{table}\" provided!")
         content = self.__get_table(table)
         if not content:
+            return None
+        if not self.has(key, table):
             return None
         _.unset(content, key)
         self.__append(table, content)

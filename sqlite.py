@@ -1,5 +1,4 @@
-import sqlite3, json
-from os import path, makedirs
+import sqlite3
 from typing import AnyStr
 
 class CGDB:
@@ -57,7 +56,6 @@ class CGDB:
                     value TEXT
                 )
                 """)
-                self.__conection.commit()
             except Exception as error:
                 print(error)
         return None
@@ -82,7 +80,7 @@ class CGDB:
         if not self.__check_table(table):
             raise Exception(f"CGDB :: Invalid table \"{table}\" provided!")
         try:
-            self.__cursor.execute(f"INSERT INTO {table} VALUES (?, ?)", (key, value,))
+            self.__cursor.execute(f"INSERT INTO {table} VALUES (?, ?)", (key, value))
             self.__conection.commit()
         except:
             self.__cursor.execute(f"UPDATE {table} SET value=? WHERE key=?", (value, key))
@@ -131,7 +129,7 @@ class CGDB:
         if not self.__check_table(table):
             raise Exception(f"CGDB :: Invalid table \"{table}\" provided!")
         try:
-            self.__cursor.execute(f"DELETE FROM {table} WHERE key=?", (key,))
+            self.__cursor.execute("DELETE FROM ? WHERE key=?", (table, key))
             self.__conection.commit()
             return True
         except:
@@ -155,7 +153,7 @@ class CGDB:
         if not self.__check_table(table):
             raise Exception(f"CGDB :: Invalid table \"{table}\" provided!")
         try:
-            self.__cursor.execute(f"SELECT * FROM {table} WHERE key=?", (key,))
+            self.__cursor.execute("SELECT * FROM ? WHERE key=?", (table, key))
             if len(self.__cursor.fetchall()) > 0:
                 return True
             else:
@@ -180,7 +178,7 @@ class CGDB:
             raise Exception(f"CGDB :: Invalid table \"{table}\" provided!")
         all = []
         try:
-            self.__cursor.execute(f"SELECT * FROM {table}")
+            self.__cursor.execute("SELECT * FROM ?", (table,))
             data = self.__cursor.fetchall()
             for tupla in data:
                 all.append({ "key": tupla[0], "value": tupla[1] })
